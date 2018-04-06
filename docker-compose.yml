@@ -3,7 +3,7 @@ services:
   rethinkdb:
     image: rethinkdb
     ports:
-     - "28015"
+     - "28015:28015"
     volumes:
      - ./data:/data
     command: rethinkdb --bind all

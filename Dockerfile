@@ -4,12 +4,12 @@ WORKDIR /usr/src/app
 
 COPY package.json ./
 
-RUN npm install -g typescript
+RUN npm install -g gulp
 RUN npm install
 
 COPY . .
 
-RUN tsc
+RUN gulp
 
 EXPOSE 9898
 

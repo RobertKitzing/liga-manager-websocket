@@ -1,7 +1,6 @@
 {
   "scripts": {
-    "start": "node dist/index.js",
-    "tsc": "tsc"
+    "start": "node ./dist/index.js"
   },
   "dependencies": {
     "@types/express": "^4.11.1",
@@ -9,6 +8,9 @@
     "@types/rethinkdb": "^2.3.9",
     "@types/ws": "^4.0.2",
     "express": "^4.16.3",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.4.0",
+    "gulp-typescript": "^4.0.2",
     "http": "^0.0.0",
     "rethinkdb": "^2.3.3",
     "typescript": "^2.8.1",
