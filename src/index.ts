@@ -1,6 +1,6 @@
 import WebsocketServer from './WebsocketServer'
 
-const port = process.env.PORT || 9898
+const port = 9898
 
 WebsocketServer.listen(port, (err) => {
   if (err) {
