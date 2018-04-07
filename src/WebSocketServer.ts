@@ -1,7 +1,7 @@
 import * as WebSocket from 'ws';
 
 export const WS_PORT: number = Number.parseFloat(process.env.WS_PORT) || 9898;
-class WebSocketServer {
+export class WebSocketServer {
 
     public websocket: any;
 
@@ -10,6 +10,7 @@ class WebSocketServer {
 
     initWebsocketServer() {
         this.websocket = new WebSocket.Server({ port: WS_PORT });
+        console.log('WebSocketServer listening on Port: ' + WS_PORT);
         this.websocket.on('connection', (ws: WebSocket) => {
 
             //connection is up, let's add a simple simple event
