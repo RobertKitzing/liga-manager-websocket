@@ -5,7 +5,7 @@ var tsProject = ts.createProject("tsconfig.json");
 
 gulp.task("default", function () {
     return tsProject.src()
-        .pipe(clean())
+        //.pipe(clean())
         .pipe(tsProject())
         .js.pipe(gulp.dest("dist"));
 });
