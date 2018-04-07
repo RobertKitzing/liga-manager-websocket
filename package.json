@@ -10,6 +10,7 @@
     "gulp-clean": "^0.4.0",
     "gulp-typescript": "^4.0.2",
     "rethinkdb": "^2.3.3",
+    "rethinkdbdash": "^2.3.31",
     "typescript": "^2.8.1",
     "ws": "^5.1.1"
   }
