@@ -9,6 +9,7 @@ RUN npm install
 
 COPY . .
 
+RUN gulp clean
 RUN gulp
 
 EXPOSE 9898

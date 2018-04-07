@@ -15,13 +15,18 @@ export class WebSocketServer {
 
             //connection is up, let's add a simple simple event
             ws.on('message', (message: string) => {
-                const msg = JSON.parse(message);
-                console.log(msg.type);
-                switch (msg.type) {
-                    case 'matchUpdated':
-                    case 'pitchAdded':
-                        this.broadcast(JSON.stringify(msg), ws);
+                try {
+                    const msg = JSON.parse(message);
+                    console.log(msg.type);
+                    switch (msg.type) {
+                        case 'matchUpdated':
+                        case 'pitchAdded':
+                            this.broadcast(JSON.stringify(msg), ws);
+                    }
+                } catch {
+                    console.log('error parsing message');
                 }
+
                 //log the received message and send it back to the client
                 console.log('received: %s', message);
             });
