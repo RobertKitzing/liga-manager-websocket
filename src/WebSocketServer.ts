@@ -8,7 +8,9 @@ export class WebSocketServer {
     public rethinkDb: RethinkDb = new RethinkDb();
 
     constructor() {
-        this.rethinkDb.saveChatMessage('test', 'ichSelbst');
+        this.rethinkDb.saveChatMessage('test', 'erster');
+        this.rethinkDb.saveChatMessage('test', 'zweiter');
+        this.rethinkDb.saveChatMessage('test', 'dritter');
     }
 
     initWebsocketServer() {

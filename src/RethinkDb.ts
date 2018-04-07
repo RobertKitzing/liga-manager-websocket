@@ -16,9 +16,16 @@ export class RethinkDb {
         });
         this.initDatabase();
         this.initTables();
-        this.r.table('chats').run().then(
+        this.r.table('chats').changes().run(
             (result) => {
-                console.log(result);
+                //console.log(result);
+                if(result) {
+                    result.changes.forEach(
+                        (change) => {
+                            console.log(change);
+                        }
+                    );
+                }
             }
         )
     }
