@@ -12,6 +12,4 @@ COPY . .
 RUN gulp clean
 RUN gulp
 
-EXPOSE 9898
-
 CMD [ "npm", "start" ]

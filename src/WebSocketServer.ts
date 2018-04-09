@@ -5,12 +5,9 @@ export const WS_PORT: number = Number.parseFloat(process.env.WS_PORT) || 9898;
 export class WebSocketServer {
 
     public websocket: any;
-    public rethinkDb: RethinkDb = new RethinkDb();
+    //public rethinkDb: RethinkDb = new RethinkDb();
 
     constructor() {
-        this.rethinkDb.saveChatMessage('test', 'erster');
-        this.rethinkDb.saveChatMessage('test', 'zweiter');
-        this.rethinkDb.saveChatMessage('test', 'dritter');
     }
 
     initWebsocketServer() {
