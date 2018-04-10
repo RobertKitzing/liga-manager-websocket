@@ -1,9 +1,12 @@
 import * as RethinkDash from 'rethinkdbdash';
+import * as WebSocket from 'ws';
+
+import { Report } from './models/reports';
 
 const DB_NAME = 'wilde_liga_bremen';
 
 export class RethinkDb {
-    private tableList: string[] = ['chats'];
+    private tableList: string[] = ['chats', 'reports'];
 
     r: RethinkDash;
     rethinkConnection: any;
@@ -11,8 +14,9 @@ export class RethinkDb {
     constructor() {
         this.r = new RethinkDash({
             servers: [
-                {host: 'localhost', port: 28015}
-            ]
+                {host: 'localhost', port: 28015},
+            ],
+            db: DB_NAME
         });
         this.initDatabase();
         this.initTables();
@@ -60,5 +64,28 @@ export class RethinkDb {
                     console.log(result);
                 }
             )
+    }
+
+    sendReport(matchId: string, ws: WebSocket): void {
+        console.log(matchId);
+        this.r.table('reports').filter({id: matchId}).run()
+        .then(
+            (result) => {
+                console.log(result);
+                ws.send( JSON.stringify({type: 'reportSent', data: result[0]}));
+            }
+        )
+    }
+
+    saveReport(data) {
+        console.log(data.content);
+        this.r.table('reports').insert({
+            id: data.matchId,
+            content: data.content
+        },{ conflict: 'replace'} ).run().then(
+            (result) => {
+                console.log(result);
+            }
+        );
     }
 }
