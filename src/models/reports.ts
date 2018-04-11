@@ -1,4 +1,5 @@
 export class Report {
     matchId: string;
-    mdContent: string;
+    content: string;
+    publish: boolean
 }

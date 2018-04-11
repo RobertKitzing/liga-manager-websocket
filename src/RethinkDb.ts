@@ -67,7 +67,6 @@ export class RethinkDb {
     }
 
     sendReport(matchId: string, ws: WebSocket): void {
-        console.log(matchId);
         this.r.table('reports').filter({id: matchId}).run()
         .then(
             (result) => {
@@ -77,11 +76,11 @@ export class RethinkDb {
         )
     }
 
-    saveReport(data) {
-        console.log(data.content);
+    saveReport(data: Report) {
         this.r.table('reports').insert({
             id: data.matchId,
-            content: data.content
+            content: data.content,
+            publish: data.publish
         },{ conflict: 'replace'} ).run().then(
             (result) => {
                 console.log(result);
