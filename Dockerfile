@@ -2,14 +2,9 @@ FROM node:carbon
 
 WORKDIR /usr/src/app
 
-COPY package.json ./
-
-RUN npm install -g gulp
-RUN npm install
-
 COPY . .
 
-RUN gulp clean
-RUN gulp
+RUN npm install --quiet
 
-CMD [ "npm", "start" ]
+# RUN node dist/index.js
+CMD [ "node", "dist/index.js" ]

@@ -14,7 +14,7 @@ export class RethinkDb {
     constructor() {
         this.r = new RethinkDash({
             servers: [
-                {host: 'localhost', port: 28015},
+                {host: 'rethinkdb', port: 28015},
             ],
             db: DB_NAME
         });
