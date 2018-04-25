@@ -1,10 +1,6 @@
 import * as WebSocket from 'ws';
 import { Authentication } from './authentication';
 
-function verifyClient(info, next) {
-    console.log(info);
-    next(false);
-}
 export const WS_PORT: number = Number.parseFloat(process.env.WS_PORT) || 9898;
 export class WebSocketServer {
 
