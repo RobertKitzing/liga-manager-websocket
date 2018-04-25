@@ -1,36 +1,41 @@
-import { RethinkDb } from './RethinkDb';
 import * as WebSocket from 'ws';
+import { Authentication } from './authentication';
 
+function verifyClient(info, next) {
+    console.log(info);
+    next(false);
+}
 export const WS_PORT: number = Number.parseFloat(process.env.WS_PORT) || 9898;
 export class WebSocketServer {
 
     public websocket: any;
-    public rethinkDb: RethinkDb = new RethinkDb();
-
+    private auth: Authentication = new Authentication();
+    
     constructor() {
+        this.initWebsocketServer();
     }
 
     initWebsocketServer() {
-        this.websocket = new WebSocket.Server({ port: WS_PORT });
+        this.websocket = new WebSocket.Server({ 
+            port: WS_PORT,
+            verifyClient : (info, next) => {
+                next(this.auth.isAuthenticated(info));
+            }
+        });
         console.log('WebSocketServer listening on Port: ' + WS_PORT);
         this.websocket.on('connection', (ws: WebSocket) => {
-            console.log('connected');
-            //connection is up, let's add a simple simple event
             ws.on('message', (message: string) => {
                 console.log('received: %s', message);
                 try {
                     const msg = JSON.parse(message);
+                    if (!this.auth.isAuthenticated(msg.token)) {
+                        ws.close();
+                    }
                     console.log(msg.type);
                     switch (msg.type) {
                         case 'matchUpdated':
                         case 'pitchAdded':
                             this.broadcast(JSON.stringify(msg), ws);
-                            break;
-                        case 'getReport':
-                            this.sendReport(msg.data, ws);
-                            break;
-                        case 'saveReport':
-                            this.saveReport(msg.data);
                             break;
                     }
                 } catch {
@@ -47,13 +52,5 @@ export class WebSocketServer {
                 client.send(message);
             }
         });
-    }
-
-    sendReport(matchId: string, ws: WebSocket): void {
-        this.rethinkDb.sendReport(matchId, ws);
-    }
-
-    saveReport(data: any) {
-        this.rethinkDb.saveReport(data);
     }
 }

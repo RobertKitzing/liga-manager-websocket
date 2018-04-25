@@ -1,17 +1,15 @@
 {
   "scripts": {
     "start": "node ./dist/index.js",
-    "build:docker": "gulp clean && gulp && docker build -t 'robertkitzing/liga-manager-websocket' ."
+    "docker:build": "gulp clean && gulp && docker build -t 'robertkitzing/liga-manager-websocket:0.1' .",
+    "docker:push": "docker push robertkitzing/liga-manager-websocket:0.1"
   },
   "dependencies": {
     "@types/node": "^9.6.2",
-    "@types/rethinkdb": "^2.3.9",
     "@types/ws": "^4.0.2",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.4.0",
     "gulp-typescript": "^4.0.2",
-    "rethinkdb": "^2.3.3",
-    "rethinkdbdash": "^2.3.31",
     "typescript": "^2.8.1",
     "ws": "^5.1.1"
   }
